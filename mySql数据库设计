@@ -1,0 +1,154 @@
+#数据库名： zxdy
+create table DY_User
+(
+	UID int auto_increment,					#头像ID
+	UName varchar(20) unique not null,				#用户名	
+	UPwd varchar(20) not null,					#密码
+	UGender char(2) default '男',																	#性别 男 or女
+	UEmail varchar(40),						#邮箱
+	URole int default 0, 						#是否是管理员 0-学生 1-老师 2-后台管理员
+	UHead varchar(50) default 'UserHead/no_head.gif',		#用户图像URL
+	URegDate date, 																		#用户注册日期
+	ULastLogin datetime,						#最后登陆日期
+	ULastEmit datetime, 						#最后发表日期
+	UPermit int default 1, 						#权限 1-可发表 0-不可发表
+	Primary key(UID)						#主键
+)engine innodb;
+
+#课程表
+create table DY_Topic_Group
+(
+	TGID int auto_increment,		#课程ID
+	TGName varchar(50) not null,		#课程名称
+	TDetail varchar(200) not null,		#课程描述
+	Primary key(TGID)			#主键
+)engine innodb auto_increment=10000;
+
+#话题表
+create table DY_Topic
+(
+	TID int auto_increment,			#话题主键
+	UID int,					#发帖人-外键
+	TGID int,				#帖子所属板块
+	TTitle varchar(200) not null,		#话题标题
+	TContent text not null,			#话题内容
+	TDate datetime not null,		#发表时间
+	TReadCount int default 0,		#阅读次数
+	Primary key(TID),									#主键
+	Foreign key(UID)references DY_User(UID) on delete cascade,
+	Foreign key(TGID)references DY_Topic_Group(TGID) on delete cascade
+)engine innodb auto_increment = 1;
+
+#回帖表
+create table DY_Revert
+(
+	RID int auto_increment,			#回帖主键
+	TID int,						#所回复主题的主键
+	UID int,						#对应用户的主键
+	RTitle varchar(200),				#回贴小标题
+	RContent text not null,				#回帖内容
+	RDate datetime not null,			#回帖时间
+	Primary key(RID),				#主键
+	Foreign key(TID)references DY_Topic(TID) on delete cascade,
+	Foreign key(UID)references DY_User(UID) on delete cascade
+)engine innodb auto_increment = 1;
+
+#关系表
+create table DY_TU
+(
+	TUID int auto_increment,		#关系表主键
+	UID int,					#学生ID
+	TGID int,				#课程ID
+	Primary key(TUID),
+	Foreign key(UID)references DY_User(UID) on delete cascade,
+	Foreign key(TGID)references DY_Topic_Group(TGID) on delete cascade
+)engine innodb auto_increment = 1;
+
+#申请表
+create table DY_Apply
+(
+	AID int auto_increment,		#申请表的ID
+	UID int,					#申请人ID
+	TGID int,				#所申请课的ID
+	AReason varchar(200) not null,		#申请原因
+	AFlag int default 0,			#申请是否处理0未处理 1已经处理
+	AStatus char(10) default '申请中',	#申请的处理结果
+	Primary key(AID),
+	Foreign key(UID)references DY_User(UID) on delete cascade,
+	Foreign key(TGID)references DY_Topic_Group(TGID) on delete cascade
+)engine innodb auto_increment = 1;
+
+
+#插入用户
+insert into DY_User(UName,UPwd,UGender,UEmail,URegDate) values('武茜','123456','女','18291884205@163.com',now());
+insert into DY_User(UName,UPwd,UGender,UEmail,URegDate) values('刘扬','123456','女','asdf@163.com',now());
+insert into DY_User(UName,UPwd,UGender,UEmail,URegDate) values('高艺鹏','123456','女','wereq@163.com',now());
+insert into DY_User(UName,UPwd,UGender,UEmail,URegDate) values('魏玉玉','123456','女','wyysgdmn@163.com',now());
+insert into DY_User(UName,UPwd,UGender,UEmail,URegDate) values('黄明凤','123456','男','wereq@163.com',now());
+insert into DY_User(UName,UPwd,UGender,UEmail,URegDate) values('蒋晓丹','123456','女','wfsfeeq@163.com',now());
+
+
+
+#新建课程
+insert into DY_Topic_Group(TGName,TDetail) values('Java','software school');
+insert into DY_Topic_Group(TGName,TDetail) values('Database','software school');
+insert into DY_Topic_Group(TGName,TDetail) values('C','software school');
+insert into DY_Topic_Group(TGName,TDetail) values('C++','software school');
+insert into DY_Topic_Group(TGName,TDetail) values('Software Engineering','software school');
+insert into DY_Topic_Group(TGName,TDetail) values('System Analysize and Designer','software school');
+insert into DY_Topic_Group(TGName,TDetail) values('English','Egnlish school');
+insert into DY_Topic_Group(TGName,TDetail) values('math','math school');
+
+#更新用户权限和选择课程
+update DY_User set URole=1 where UName='黄明凤';		#更新wyf为老师
+update DY_User set URole=2 where UName='蒋晓丹';		#更新jxd为后台管理员
+insert into DY_TU(UID,TGID) values (2,10000);
+insert into DY_TU(UID,TGID) values (2,10001);
+insert into DY_TU(UID,TGID) values (2,10002);		
+insert into DY_TU(UID,TGID) values (1,10001);
+insert into DY_TU(UID,TGID) values (1,10003);
+insert into DY_TU(UID,TGID) values (1,10005);		#设置1号学生的课程
+insert into DY_TU(UID,TGID) values (3,10005);
+insert into DY_TU(UID,TGID) values (3,10004);
+insert into DY_TU(UID,TGID) values (3,10007);
+
+#提出问题
+insert into DY_Topic(UID,TGID,TTitle,TContent,TReadCount,TDate) values(1,10000,'Java中Integer类的一个小问题 ==比较用法','Integer内的值的大小在Byte范围内时，==比较返回true 在范围之外返回false 
+这是为什么呢，为什么会这样？ ',20,'2018-06-23 11:07:16');
+insert into DY_Topic(UID,TGID,TTitle,TContent,TReadCount,TDate) values(1,10000,'怎样学习框架ssh','学习struts spring hibernate 的顺序是ssh吗  顺便麻烦根据我的情况推荐几本书',15,now());
+insert into DY_Topic(UID,TGID,TTitle,TContent,TReadCount,TDate) values(2,10003,'C++很难吗？应该怎么样学习呢','请给我推荐几本C++的书，给我讲些学习方法谢谢',12,now());
+insert into DY_Topic(UID,TGID,TTitle,TContent,TReadCount,TDate) values(2,10001,'Sql Sever','Sql Server 和 MySql有什么区别吗？',12,'2018-06-22 12:00:15');
+insert into DY_Topic(UID,TGID,TTitle,TContent,TReadCount,TDate) values(1,10000,'JAVA很难吗？应该怎么样学习呢','请给我推荐几本JAVA的书，给我讲些学习方法谢谢',12,now());
+insert into DY_Topic(UID,TGID,TTitle,TContent,TReadCount,TDate) values(1,10002,'请教一句SQL怎么写。。','这个SQL好难啊，应该怎么学呢',12,now());
+insert into DY_Topic(UID,TGID,TTitle,TContent,TReadCount,TDate) values(1,10005,'系分相关','系分到底要咋学，求问求问',12,now());
+insert into DY_Topic(UID,TGID,TTitle,TContent,TReadCount,TDate) values(3,10004,'软工问题','这个科目应该怎么学，跪求各位大神帮帮忙',12,'2018-06-22 20:22:07');
+insert into DY_Topic(UID,TGID,TTitle,TContent,TReadCount,TDate) values(2,10001,'写数据库用哪个工具比较好','sql server、mysql和oracle哪个比较好啊，走过路过来说一说啊',12,now());
+insert into DY_Topic(UID,TGID,TTitle,TContent,TReadCount,TDate) values(1,10001,'高老师的数据库教的怎么样','大二要学数据库了，想问问这个老师教的咋样',12,now());
+insert into DY_Topic(UID,TGID,TTitle,TContent,TReadCount,TDate) values(2,10000,'软院Java学习','在Java中如何使用集合',12,now());
+insert into DY_Topic(UID,TGID,TTitle,TContent,TReadCount,TDate) values(3,10006,'英语四六级','保研优研要是六级没过影响吗，感觉这次又没过，哭唧唧',12,now());
+
+#回复问题
+insert into DY_Revert(TID,UID,RTitle,RContent,RDate) values(2,3,'','看书，上网问问题',now());
+insert into DY_Revert(TID,UID,RTitle,RContent,RDate) values(2,4,'','上课好好听，有问题就去问老师问同学，学会使用搜索引擎',now());
+insert into DY_Revert(TID,UID,RTitle,RContent,RDate) values(2,2,'','多查看api和官网，夺取技术博客看看，csnd就不错。可以养成写技术学习博客的习惯',now());
+insert into DY_Revert(TID,UID,RTitle,RContent,RDate) values(1,4,'','传说新版本的JAVA 会自动缓存BYTE范围内的值.',now());
+insert into DY_Revert(TID,UID,RTitle,RContent,RDate) values(1,2,'','楼主懂了吗？可以参考Java里的源代码',now());
+insert into DY_Revert(TID,UID,RTitle,RContent,RDate) values(1,3,'','这个我不是很清楚，同问',now());
+insert into DY_Revert(TID,UID,RTitle,RContent,RDate) values(1,4,'','建议楼主百度一下，应该会有详细的解说',now());
+insert into DY_Revert(TID,UID,RTitle,RContent,RDate) values(1,1,'','谢谢大家指教',now());
+insert into DY_Revert(TID,UID,RTitle,RContent,RDate) values(3,3,'','认真学习，专心研究的话就好学',now());
+insert into DY_Revert(TID,UID,RTitle,RContent,RDate) values(9,4,'','都...差不多的吧，个人喜欢用mysql，没有图形用户界面你敢信？',now());
+insert into DY_Revert(TID,UID,RTitle,RContent,RDate) values(12, 2,'','建议走优研',now());
+
+insert into DY_TU(UID,TGID) values (5,10000);		#设置wyf为所有课程的老师
+insert into DY_TU(UID,TGID) values (5,10001);
+insert into DY_TU(UID,TGID) values (5,10002);		
+insert into DY_TU(UID,TGID) values (5,10003);
+insert into DY_TU(UID,TGID) values (5,10004);	
+insert into DY_TU(UID,TGID) values (5,10005);
+insert into DY_TU(UID,TGID) values (5,10006);
+insert into DY_TU(UID,TGID) values (5,10007);
+
+
+
+
