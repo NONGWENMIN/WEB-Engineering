@@ -1,0 +1,253 @@
+body { 	
+	font-size:13px;	
+	margin:7px 10% 7px 10%; 
+	background-color:#f1f7f8;
+}
+#menu { 
+	height: 28px; 
+	border: 1px solid #95bcce; 
+	background: #f1f7f8; 
+}
+#menu ul{ 
+		float: right; 
+		padding: 0px; 
+		/*border: 1px solid black;*/
+		margin:3px 12px ;
+		border-right: 1px solid #f1f7f8;
+}
+#menu li { 
+	float: left;
+	font-size:15px;
+	list-style-type:none;
+}
+#menu li a { 
+		text-decoration: none; 
+		float: left; 
+		color: #333; 
+		padding: 3px 5px; 
+		background: url('../images/menu.gif') no-repeat 0 6px; 
+}
+#menu li a:active { 
+	background-color:#FFFFFF; 	
+	border-top:1px solid #95bcce;
+	border-left:1px solid #95bcce;
+	border-right:1px solid #95bcce;
+	border-bottom:1px solid #FFFFFF;
+ 	font-weight: bold; 
+ 	padding: 3px, 5px; 
+  	background-image: none; 
+  }
+  
+#nav { 
+	margin-top:0px;
+	margin-bottom:0px; 
+	padding:0px 0px;
+	float: center;
+	width:100%;
+	height:30px;
+	padding-left: 5px;
+	}
+#nav table{
+	font-size:13px;
+	width:100%;
+	height:20px;
+}
+#nav table td a { 
+	font-weight: bold;
+	color: #000;
+	text-decoration:none; 
+	}
+#nav table td a:hover{
+	text-decoration:underline;
+}
+.regbox {
+	background: #f1f7f8; 
+	border: 1px solid #c0c0b3; 
+	padding: 1px; 
+}
+.regtitle{
+	  background:#5c6878;
+	  height: 25px;
+	  padding:3px 5px;
+	  text-align:center;
+	  font-size:15px;
+	  font-weight:bold;
+	  color:white;  
+	  line-height:22px;
+	  width:99%;
+}
+.regbox table th { 
+	background: #DFDFD4; 
+	padding: 2px 5px; 
+	line-height: 30px;
+	font: 15px/1.6em Arial,sans-serif;
+	color: #000000; 
+}
+.regbox table td {
+	background: #f1f7f8; 
+	vertical-align: top;
+	padding: 3px 5px;
+	line-height: 30px;
+	border-top: 1px solid #c0c0b3;
+	font: 15px/1.6em Arial,sans-serif;
+	color: #000000; 
+}
+.message{
+	color:black;
+	padding: 5px;
+	margin:2px;
+	font-size:12px;
+	vertical-align:middle;
+	text-align:middle;
+}
+#button{
+	cursor:hand;
+	margin-right: 1em; 
+	border: 1px solid; 
+	line-height: 1.5em;
+	border-color: #257986 #1d4d54 #0f2c30 #1d4d54; 
+	background: #5c6878; 
+	color: white; 
+	padding: 0 10px; 
+}
+
+#errzd{
+	z-index:2;
+	visibility:hidden;
+	position:absolute;
+	left:20;
+	top:30;
+	font-size:12px;
+	background-color:white
+}
+.jd{     
+     visibility:hidden;
+     position:absolute;
+     z-index:1;
+     font-size:13px;
+}
+.input{																/*输入文本框的css*/
+	border-top:1px solid black;
+	border-left:1px solid black;
+	border-bottom:1px solid #95bcce;
+	border-right:1px solid #95bcce;
+	width:12em;
+}
+.input2{																/*输入文本框的css*/
+	border-top:1px solid black;
+	border-left:1px solid black;
+	border-bottom:1px solid #95bcce;
+	border-right:1px solid #95bcce;
+	width:8em;
+}
+.input3{																/*上传文件文本框的css*/
+	border-top:1px solid black;
+	border-left:1px solid black;
+
+	width:20em;
+}
+.input4{																/*上传文件文本框的css*/
+	border-top:1px solid black;
+	border-left:1px solid black;
+	width:17em;
+}
+.htbt{																/*回答问题标题的css*/
+	border-bottom:1px solid #c0c0c0;
+	border-right:1px solid #c0c0c0;
+	width:20em;
+}
+.textarea{
+	border-bottom:1px solid #c0c0c0;
+	border-right:1px solid #c0c0c0;
+}
+#yzm{
+	border-bottom:1px solid #c0c0c0;
+	border-right:1px solid #c0c0c0;
+	width:4em;	
+}
+/*一般页面的消息框*/
+.messagebox {
+	margin: 6.6em 10em 8.5em; 
+	padding: 0 0 1em;
+	border: 1px solid #95bcce; 
+	background: #f1f7f8; 
+	}
+	.messagebox h1 { 
+		line-height: 26px; 
+		border-bottom: 1px solid #95bcce; 
+		background: #f1f7f8; 
+		background-position: 0 0; 
+		padding-left: 1em; 
+		margin-top: 0em; 
+		font-size:15px; 
+	}
+	.messagebox p { margin: 0.8em; }
+	.messagebox a {
+		color: #000; 
+		text-decoration:none;
+	}
+	.messagebox a:hover{
+		font-weight:bold;
+		color:red;
+		text-decoration:underline;
+	}
+	/*个人页面的消息框*/
+	.personal_messagebox { 
+	margin: 5em 4em; 
+	padding: 0 0 1em;
+	border: 1px solid #95bcce; 
+	background: #f1f7f8; 
+	}
+	.personal_messagebox h1 { 
+		line-height: 26px; 
+		border-bottom: 1px solid #95bcce; 
+		background: #f1f7f8; 
+		background-position: 0 0; 
+		padding-left: 1em; 
+		margin-top: 0em; 
+		font-size:15px; 
+	}
+	.personal_messagebox p { 
+		margin: 0.8em;
+		font-size:13px;
+	}
+	.personal_messagebox a {
+		color: #000; 
+		text-decoration:none;
+	}
+	.personal_messagebox a:hover{
+		font-weight:bold;
+		color:red;
+		text-decoration:underline;
+	}
+	/*我的 隐藏菜单*/
+	.hidmenu{
+		width:170px;
+		padding:5px 15px;
+		border:1px solid #95bcce;
+		background:#f1f7f8;
+	}
+		.hidmenu table{
+			font-size:13px;
+			width:150px;
+			vertical-align:center;
+			padding:2px 2px;
+			margin-bottom:8px;
+			margin-top:8px;
+		}
+			.hidmenu table td{
+				height:25px;
+				padding-left:3px;
+				padding-right:3px;
+				padding-top:3px;
+				padding-bottom:1px;
+				border-bottom:1px solid #95bcce;
+		}
+		.hidmenu table td a{
+				text-decoration:none;
+				color:black;
+		}
+		.hidmenu table td a:hover{
+				text-decoration:underline;
+				color:black;
+		}

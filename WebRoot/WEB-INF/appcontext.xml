@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+   "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName">
+     <!--通过JNDI获得数据源的引用-->
+     <bean id="zxdyDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+         <property name="jndiName">
+              <value>java:comp/env/jdbc/zxdy</value>
+         </property>
+     </bean>
+    <!-- 配置JdbcTemplate的bean -->
+     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource">
+           <ref local="zxdyDataSource"/>
+        </property>
+     </bean>
+     <!-- 配置DBUtil的bean并注入资源-->
+     <bean id="DBUtil" class="DAO.DBUtil">
+        <property name="jt">
+           <ref local="jdbcTemplate"/>
+        </property>
+        <property name="ds">
+        	<ref local="zxdyDataSource"/>
+        </property>
+     </bean>
+     <!-- Struts Action在Spring中对应的Bean -->
+     <!--配置验证用户名唯一性的Action为Spring的受管Bean并注入资源 -->
+    <bean id="UUAction" class="Action.UnameUniqueAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--注册用户的Action为Spring的受管Bean并注入资源 -->
+    <bean id="Reg" class="Action.RegAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--用户登陆的Action为Spring的受管Bean并注入资源 -->
+    <bean id="Login" class="Action.LoginAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!-- 进入首页的Action-->
+    <bean id="Index" class="Action.IndexAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!-- 从课程列表到问题列表的Action -->
+    <bean id="TTLAction" class="Action.TopicListAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!-- 从问题到问题详情和回复列表的Action-->
+    <bean id="TTDAction" class="Action.TopicDetailAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--发表问题的Action-->
+    <bean id="EAction" class="Action.EmitAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--申请课程的Action-->
+    <bean id="AAction" class="Action.ApplyAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--得到课程列表的Action-->
+    <bean id="GMCAction" class="Action.GetMyCourseAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--得到用户资料的Action-->
+    <bean id="GMIAction" class="Action.GetMyInfo" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--修改密码的Action-->
+    <bean id="CPWDAction" class="Action.ChangePwdAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--修改资料的Action-->
+    <bean id="CIFAction" class="Action.ChangeInfoAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--到我的课程页面的Action-->
+    <bean id="TMCAction" class="Action.ToMyCourseAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>   
+    <!--教师页面分页Action的BaseAction-->
+		<bean id="TAFAction" class="Action.TipAndFenYeAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>     
+    <!--搜索我的问题的Action-->
+    <bean id="TMQAction" class="Action.ToMyQusetionAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean> 
+    <!--搜索我参与过的问题的Action-->
+    <bean id="TMAAction" class="Action.ToMyAnswerAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--搜索我的申请的Action-->
+    <bean id="MyApplyAction" class="Action.ToMyApplayAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--搜索出我需要回答问题的Action-->
+    <bean id="TNAAction" class="Action.ToNeedAnswerAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>  
+    <!--到修改密码页面时得到未回答和未处理的数目的Action-->
+    <bean id="GTAction" class="Action.GetTipAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--添加学生的Action-->
+    <bean id="ASAction" class="Action.AddStuAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--老师管理学生的Action-->
+    <bean id="MSAction" class="Action.ManageStuAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    
+    <!--管理员登陆的action-->
+   	<bean id="ALAction" class="Action.AdminLoginAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--管理员列表--> 
+    <bean id="AMAction" class="Action.AdminManageAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <!--用户列表-->
+    <bean id="TULAction" class="Action.ToUserListAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    <bean id="TCLAction" class="Action.ToCourseListAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    
+    <bean id="ECAction" class="Action.EditCourseAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    
+    <bean id="TQLAction" class="Action.ToQuestionListAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    
+     <bean id="TRLAction" class="Action.ToRevertListAction" singleton="false">
+        <property name="dbu">
+           <ref local="DBUtil"/>
+        </property>
+    </bean>
+    
+</beans>

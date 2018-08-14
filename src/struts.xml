@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	
+	<package name="mydefault" extends="struts-default">
+     	<action name="Reg" class="Reg">
+          <result name="success">/message.jsp</result>
+       </action>
+       <action name="UUAction" class="UUAction">
+       		<result name="success">/flag.jsp</result>
+       </action>
+    	<action name="Login" class="Login">
+          <result name="success">/message.jsp</result>
+      </action>
+      <action name="ALAction" class="ALAction">
+          <result name="success">/adminMessage.jsp</result>
+      </action>
+    	<action name="DYAction" class="Action.BaseAction">
+          <result name="success">/message.jsp</result>
+          <result name="login">/adminMessage.jsp</result>
+      </action>
+      <action name="IndexAction" class="Index">
+          <result name="success">/index.jsp</result>
+      </action>
+	</package>
+	
+   <package name="zxdyQT" extends="struts-default">
+   	<!--配置拦截器-->
+   	 <interceptors>
+			<interceptor name="mi" class="Action.MyInterceptor"/>
+			<interceptor-stack name="zxdydefault">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="mi"/>
+			</interceptor-stack>
+		</interceptors>
+		<!--配置默认拦截器-->
+		<default-interceptor-ref name="zxdydefault"/>
+		<global-results>
+          <result name="LOGIN">/login.jsp</result>
+		</global-results>
+      <action name="TTLAction" class="TTLAction">
+          <result name="success">/topicList.jsp</result>
+          <result name="error">/message.jsp</result>
+      </action>
+      <action name="TTDAction" class="TTDAction">
+          <result name="success">/topicDetail.jsp</result>
+          <result name="error">/message.jsp</result>
+      </action>
+      <action name="EAction" class="EAction">
+          <result name="success">/message.jsp</result>
+      </action>
+      <action name="AAction" class="AAction">
+          <result name="success">/message.jsp</result>
+      </action>
+      <action name="GMCAction" class="GMCAction">
+          <result name="success">/newQuestion.jsp</result>
+      </action>
+      <action name="GMIAction" class="GMIAction">
+          <result name="success">/myInfo.jsp</result>
+      </action>
+      
+      
+      <action name="CPWDAction" class="CPWDAction">
+          <result name="success">/changePwd.jsp</result>
+          <result name="login">/login.jsp</result>
+      </action>
+   		 <!-- 上传文件action-->
+      <action name="CIFAction" class="CIFAction">
+      		<interceptor-ref name="fileUpload"><!--限制文件大小和格式的拦截器-->
+       			<param name="allowedTypes">image/bmp,image/png,image/gif,image/jpeg,image/jpg</param>
+       			<param name="maximumSize">1048576</param>
+       		</interceptor-ref>
+       		<interceptor-ref name="defaultStack"/>
+       		<param name="savePath">/UserHead</param><!--文件保存路径-->
+          <result name="success">/changeInfo.jsp</result>
+          <result name="input">/changeInfo.jsp</result>
+      </action>
+      <!--到我的申请的Action-->
+      <action name="MyApplyAction" class="MyApplyAction">
+          <result name="success">/myApply.jsp</result>
+      </action>
+       
+      <!--到我的课程页面的Action-->
+      <action name="TMCAction" class="TMCAction">
+          <result name="success">/myCourse.jsp</result>
+      </action>
+      <!--到我的提问页面的Action-->
+      <action name="TMQAction" class="TMQAction">
+          <result name="success">/myQuestion.jsp</result>
+      </action>
+      <!--到我的参与的问题的Action-->
+      <action name="TMAAction" class="TMAAction">
+          <result name="success">/myAnswer.jsp</result>
+      </action>      
+    	<!--教师为课程添加学生Action的Action-->
+			<action name="ASAction" class="ASAction">
+          <result name="success">/addStu.jsp</result>
+      </action>
+    
+      <!--老师查询未回答问题的Action-->
+      <action name="TNAAction" class="TNAAction">
+          <result name="success">/needAnswer.jsp</result>
+      </action>
+      <!--得到未回答问题数和未处理申请数的Action-->
+      <action name="GTAction" class="GTAction">
+          <result name="login">/login.jsp</result>
+          <result name="success">/changePwd.jsp</result>
+      </action>
+      <!--教师页面分页Action的BaseAction-->
+			<action name="TAFAction" class="TAFAction">
+          <result name="success">/${url}</result>
+      </action>
+  
+         <!--教师为管理学生Action的Action-->
+			<action name="MSAction" class="MSAction">
+          <result name="success">/stuManage.jsp</result>
+      </action>       
+   </package>
+   
+   
+   <!--后台管理的Action-->
+   
+   	<package name="manage" extends="struts-default">
+   		   	<!--配置拦截器-->
+   	<interceptors>
+			<interceptor name="mi" class="Action.MyInterceptor"/>
+			<interceptor-stack name="zxdydefault">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="mi"/>
+			</interceptor-stack>
+		</interceptors>
+		<!--配置默认拦截器-->
+		<default-interceptor-ref name="zxdydefault"/>
+		<global-results>
+          <result name="LOGIN">/adminLogin.jsp</result>
+		</global-results> 		
+   		
+			<action name="ChangePwdAction" class="CPWDAction">
+          <result name="success">/adminChangePwd.jsp</result>
+          <result name="login">/adminLogin.jsp</result>
+      </action>
+      <!--管理员列表和删除管理员的action-->
+      <action name="TMLAction" class="AMAction">
+          <result name="success">/adminList.jsp</result>
+      </action>
+      <action name="AddManage" class="AMAction">
+          <result name="success">/addManage.jsp</result>
+      </action>
+      <action name="RMPwdAction" class="AMAction">
+          <result name="success">/resetManagePwd.jsp</result>
+      </action>
+      <!--重置用户密码-->
+      <action name="RUPwdAction" class="AMAction">
+          <result name="success">/resetStuPwd.jsp</result>
+      </action>
+      
+      <!--用户管理-->
+      <action name="TULAction" class="TULAction">
+          <result name="success">/userList.jsp</result>
+      </action>
+      
+      
+     <action name="TCLAction" class="TCLAction">
+          <result name="success">/courseList.jsp</result>
+      </action>
+      
+      <action name="ECAction" class="ECAction">
+          <result name="success">/editCourse.jsp</result>
+      </action>
+      <action name="ACAction" class="ECAction">
+          <result name="success">/addCourse.jsp</result>
+      </action>
+      <!--管理端到问题列表的action-->
+      <action name="QLAction" class="TQLAction">
+          <result name="success">/questionList.jsp</result>
+      </action>
+      
+      <action name="QDAction" class="TQLAction">
+          <result name="success">/detail.jsp</result>
+      </action>
+      
+     <action name="TRLAction" class="TRLAction">
+          <result name="success">/revertList.jsp</result>
+      </action>
+      
+      
+     <action name="RDAction" class="TRLAction">
+          <result name="success">/detail.jsp</result>
+      </action>      
+	</package>
+</struts>
+

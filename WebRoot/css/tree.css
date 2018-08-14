@@ -1,0 +1,43 @@
+body{
+	background-color:#f1f7f8;
+	font: 12px/1.6em Arial,sans-serif;
+	margin-left:20px;
+}
+.tree{
+	margin-left:0.1em;
+	font-size:16px;
+	font: 12px/1.6em Arial,sans-serif;
+}
+.tree td{
+	font-size:14px;
+	cursor:hand;
+	vertical-align:middle;
+}
+.tree img{
+	width:18;
+	height:18;
+	border:0px;
+  margin-right: 4px;
+  margin-left: 0px;
+  vertical-align:middle;
+}
+.tree td a {
+	font-size:15px;
+	vertical-align:middle;
+  text-decoration: none;
+  color: #000000;
+}
+.tree td a {
+	text-align:center;
+	font-size:15px;
+  text-decoration: none;
+  color: #000000;
+}
+.tree td a:hover {
+  color: red;
+  font-weight: bold;
+}
+.xz{
+	background: #C2CB3A;
+  font-weight: bold;
+}
